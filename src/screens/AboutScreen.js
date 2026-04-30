@@ -21,6 +21,7 @@ const DEVELOPER = {
   nim: "2410501117",
   class: "Kelas A",
   theme: "Tema B - MovieDex",
+  role: "Full-stack Developer", // Ditambahkan untuk melengkapi data
   avatarUri: require("../../assets/images/profil.jpg"),
 };
 
@@ -54,13 +55,10 @@ const LINKS = [
 
 export default function AboutScreen() {
   const pulseAnim = useRef(new Animated.Value(1)).current;
-
-  // Membuat array animasi secara dinamis (total 6 section/elemen)
   const fadeAnims = useRef([...Array(6)].map(() => new Animated.Value(0))).current;
   const slideAnims = useRef([...Array(6)].map(() => new Animated.Value(24))).current;
 
   useEffect(() => {
-    // Animasi Logo berdenyut
     Animated.loop(
       Animated.sequence([
         Animated.timing(pulseAnim, { toValue: 1.08, duration: 1800, useNativeDriver: true }),
@@ -68,7 +66,6 @@ export default function AboutScreen() {
       ])
     ).start();
 
-    // Animasi muncul berurutan (Stagger)
     Animated.stagger(
       100,
       fadeAnims.map((fade, i) =>
@@ -106,7 +103,7 @@ export default function AboutScreen() {
           </Animated.View>
         </View>
 
-        {/* ── Profil Pengembang (Ganti Ikon dengan Gambar) ── */}
+        {/* ── Profil Pengembang ── */}
         <Animated.View style={[styles.section, animStyle(1)]}>
           <View style={styles.sectionHeader}>
             <View style={[styles.sectionDot, { backgroundColor: "#4ADE80" }]} />
@@ -166,7 +163,11 @@ export default function AboutScreen() {
             <TouchableOpacity 
               key={link.label} 
               style={[styles.linkRow, index === LINKS.length - 1 && { borderBottomWidth: 0 }]} 
-              onPress={() => Linking.openURL(link.url)} 
+              onPress={() => {
+                Linking.openURL(link.url).catch(() => {
+                  alert("Tidak dapat membuka tautan ini.");
+                });
+              }} 
               activeOpacity={0.75}
             >
               <View style={[styles.linkIcon, { borderColor: link.color + "33" }]}>
@@ -210,7 +211,6 @@ const styles = StyleSheet.create({
   techGrid: { flexDirection: "row", flexWrap: "wrap", gap: 8 },
   techChip: { flexDirection: "row", alignItems: "center", gap: 6, backgroundColor: "#0D0D1A", borderWidth: 1, borderColor: "#2A2A42", paddingHorizontal: 12, paddingVertical: 7, borderRadius: 20 },
   techLabel: { fontSize: 12, fontWeight: "600" },
-  
   memberRow: { flexDirection: "row", alignItems: "center", gap: 16 },
   memberTextContainer: { flex: 1 }, 
   imageGlowContainer: { 
@@ -228,8 +228,6 @@ const styles = StyleSheet.create({
     borderWidth: 1.5, 
     borderColor: "#E040FB55",
   },
-  // -- Akhir Style Baru --
-
   memberName: { color: "#FFFFFF", fontSize: 16, fontWeight: "700" },
   memberInfo: { color: "#A78BFA", fontSize: 12, marginTop: 2 },
   memberRole: { color: "#888", fontSize: 12, marginTop: 2 },

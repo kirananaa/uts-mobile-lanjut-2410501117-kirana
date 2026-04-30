@@ -1,3 +1,4 @@
+import { useCallback, useState } from "react";
 import {
   Alert,
   FlatList,
@@ -56,10 +57,14 @@ function FavItem({ item, onPress, onHapus }) {
 
 export default function FavoritesScreen({ navigation }) {
   const { favorites, removeFavorite } = useAppContext();
+  const [error, setError] = useState(null);
 
   function handlePress(show) {
-    // Navigasi ke Detail melalui HomeStack agar tidak error
-    navigation.navigate("Home", { screen: "Detail", params: { show } });
+    try {
+      navigation.navigate("Home", { screen: "Detail", params: { show } });
+    } catch (e) {
+      setError("Gagal membuka detail film. Silakan coba kembali.");
+    }
   }
 
   function handleHapus(item) {
@@ -68,11 +73,36 @@ export default function FavoritesScreen({ navigation }) {
       {
         text: "Hapus",
         style: "destructive",
-        onPress: () => removeFavorite(item.id),
+        onPress: () => {
+          try {
+            removeFavorite(item.id);
+          } catch (e) {
+            setError("Gagal menghapus favorit.");
+          }
+        },
       },
     ]);
   }
 
+  // Tampilan ketika terjadi error
+  if (error) {
+    return (
+      <View style={styles.center}>
+        <StatusBar barStyle="light-content" backgroundColor="#0D0D1A" />
+        <Text style={styles.errorIcon}>⚠️</Text>
+        <Text style={styles.errorTitle}>Terjadi Kesalahan</Text>
+        <Text style={styles.emptyDesc}>{error}</Text>
+        <TouchableOpacity
+          style={styles.retryButton}
+          onPress={() => setError(null)}
+        >
+          <Text style={styles.retryText}>Coba Lagi</Text>
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  // Tampilan ketika data favorit kosong
   if (favorites.length === 0) {
     return (
       <View style={styles.center}>
@@ -80,8 +110,7 @@ export default function FavoritesScreen({ navigation }) {
         <Text style={styles.emptyIcon}>⭐</Text>
         <Text style={styles.emptyTitle}>Belum ada favorit</Text>
         <Text style={styles.emptyDesc}>
-          Buka detail film lalu tekan "Tambah ke Favorit" untuk menyimpan
-          koleksimu.
+          Buka detail film lalu tekan ikon hati untuk menyimpan koleksimu.
         </Text>
       </View>
     );
@@ -109,7 +138,7 @@ export default function FavoritesScreen({ navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#0D0D1A" }, // Latar Gelap
+  container: { flex: 1, backgroundColor: "#0D0D1A" },
   list: { padding: 16, paddingTop: 60 },
   header: {
     fontSize: 24,
@@ -135,7 +164,7 @@ const styles = StyleSheet.create({
   noPoster: { alignItems: "center", justifyContent: "center" },
   info: { flex: 1, padding: 12, gap: 4 },
   name: { fontSize: 15, fontWeight: "700", color: "#FFFFFF" },
-  genre: { fontSize: 12, color: "#A78BFA" }, // Warna Ungu Muda
+  genre: { fontSize: 12, color: "#C8A165" }, // Cokelat Muda (Warna Branding Bloom)
   rating: { fontSize: 12, color: "#FCD34D", fontWeight: "700" },
   statusOn: { fontSize: 11, fontWeight: "600", color: "#4ADE80" },
   statusOff: { fontSize: 11, fontWeight: "600", color: "#F87171" },
@@ -143,7 +172,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 8,
     marginRight: 12,
-    backgroundColor: "rgba(220, 38, 38, 0.1)", // Transparan merah
+    backgroundColor: "rgba(220, 38, 38, 0.1)",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: "#DC2626",
@@ -157,10 +186,17 @@ const styles = StyleSheet.create({
     backgroundColor: "#0D0D1A",
   },
   emptyIcon: { fontSize: 60, marginBottom: 16 },
+  errorIcon: { fontSize: 48, marginBottom: 16 },
   emptyTitle: {
     fontSize: 20,
     fontWeight: "800",
     color: "#FFFFFF",
+    marginBottom: 8,
+  },
+  errorTitle: {
+    fontSize: 20,
+    fontWeight: "800",
+    color: "#F87171",
     marginBottom: 8,
   },
   emptyDesc: {
@@ -168,5 +204,17 @@ const styles = StyleSheet.create({
     color: "#888",
     textAlign: "center",
     lineHeight: 22,
+    marginBottom: 16,
+  },
+  retryButton: {
+    backgroundColor: "#C8A165", // Warna cream/cokelat
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 12,
+  },
+  retryText: {
+    color: "#0D0D1A",
+    fontWeight: "700",
+    fontSize: 14,
   },
 });

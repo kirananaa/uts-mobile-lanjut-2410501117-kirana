@@ -26,7 +26,6 @@ export default function HomeScreen({ navigation }) {
     try {
       setError(null);
       const data = await getPopularShows();
-      // Filter show yang memiliki gambar [cite: 6]
       const withImages = data.filter((s) => s.image && s.image.medium);
       setShows(withImages);
     } catch (err) {
@@ -50,8 +49,6 @@ export default function HomeScreen({ navigation }) {
     <TouchableOpacity
       style={styles.card}
       onPress={() =>
-        // DISESUAIKAN: Mengirim objek item utuh dengan kunci 'show'
-        // agar terbaca oleh DetailScreen
         navigation.navigate("Detail", { show: item })
       }
       activeOpacity={0.85}
@@ -93,7 +90,7 @@ export default function HomeScreen({ navigation }) {
     return (
       <View style={styles.centered}>
         <StatusBar barStyle="light-content" backgroundColor="#0D0D1A" />
-        <ActivityIndicator size="large" color="#E040FB" />
+        <ActivityIndicator size="large" color="#C8A165" />
         <Text style={{ color: "#888", marginTop: 15, fontSize: 14 }}>
           Menyiapkan tontonan seru...
         </Text>
@@ -139,8 +136,8 @@ export default function HomeScreen({ navigation }) {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            colors={["#E040FB"]}
-            tintColor="#E040FB"
+            colors={["#C8A165"]}
+            tintColor="#C8A165"
             title="Memperbarui..."
             titleColor="#888"
           />
@@ -228,7 +225,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   cardGenre: {
-    color: "#A78BFA",
+    color: "#C8A165", // Coklat Muda / Warna Branding Bloom
     fontSize: 11,
     marginBottom: 6,
   },
@@ -246,11 +243,6 @@ const styles = StyleSheet.create({
     color: "#888",
     fontSize: 10,
   },
-  loadingText: {
-    color: "#888",
-    marginTop: 12,
-    fontSize: 14,
-  },
   errorIcon: {
     fontSize: 48,
     marginBottom: 16,
@@ -262,13 +254,13 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: "#E040FB",
+    backgroundColor: "#C8A165", // Warna cream/coklat
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 12,
   },
   retryText: {
-    color: "#FFFFFF",
+    color: "#0D0D1A",
     fontWeight: "700",
     fontSize: 14,
   },
