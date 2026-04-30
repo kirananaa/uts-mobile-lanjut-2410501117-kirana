@@ -3,7 +3,7 @@ import { useEffect, useRef } from "react";
 import {
   Animated,
   Dimensions,
-  Image, 
+  Image,
   Linking,
   ScrollView,
   StatusBar,
@@ -21,7 +21,7 @@ const DEVELOPER = {
   nim: "2410501117",
   class: "Kelas A",
   theme: "Tema B - MovieDex",
-  role: "Full-stack Developer", // Ditambahkan untuk melengkapi data
+  role: "Full-stack Developer", 
   avatarUri: require("../../assets/images/profil.jpg"),
 };
 

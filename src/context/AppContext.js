@@ -9,7 +9,7 @@ export const AppContext = createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_FAVORITE":
-      // Cek agar tidak double
+
       if (state.favorites.some((f) => f.id === action.payload.id)) return state;
       return {
         ...state,
@@ -30,7 +30,6 @@ const reducer = (state, action) => {
 export const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Helper functions agar kodingan di screen tetap simpel
   const addFavorite = (show) =>
     dispatch({ type: "ADD_FAVORITE", payload: show });
   const removeFavorite = (id) =>
@@ -40,7 +39,7 @@ export const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        favorites: state.favorites, // Kirim favorites-nya saja biar langsung dipakai
+        favorites: state.favorites, 
         addFavorite,
         removeFavorite,
         isFavorite,
@@ -51,7 +50,6 @@ export const AppProvider = ({ children }) => {
   );
 };
 
-// WAJIB: Tambahkan hook ini agar error 'undefined' hilang
 export const useAppContext = () => {
   const context = useContext(AppContext);
   if (!context) {

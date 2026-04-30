@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import {
   Alert,
   FlatList,
@@ -84,7 +84,7 @@ export default function FavoritesScreen({ navigation }) {
     ]);
   }
 
-  // Tampilan ketika terjadi error
+  
   if (error) {
     return (
       <View style={styles.center}>
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
-    backgroundColor: "#16162A", // Kartu Gelap
+    backgroundColor: "#16162A", 
     borderRadius: 12,
     overflow: "hidden",
     borderWidth: 1,
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   retryButton: {
-    backgroundColor: "#C8A165", // Warna cream/cokelat
+    backgroundColor: "#C8A165", 
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 12,

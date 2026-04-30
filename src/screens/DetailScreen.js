@@ -11,7 +11,7 @@ import {
     TouchableOpacity,
     View,
 } from "react-native";
-import { useAppContext } from "../context/AppContext"; // Pastikan path-nya benar
+import { useAppContext } from "../context/AppContext";
 import { fetchShowDetail, stripHtml } from "../services/api";
 
 const { width } = Dimensions.get("window");
@@ -32,10 +32,8 @@ export default function DetailScreen({ route }) {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Mengambil fungsi favorit dari AppContext
     const { isFavorite, addFavorite, removeFavorite } = useAppContext();
 
-    // Gunakan show dari API jika ada, jika tidak pakai showParam dari navigasi
     const currentShow = show || showParam;
     const sudahFavorit = currentShow ? isFavorite(currentShow.id) : false;
 
@@ -219,7 +217,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: "#E040FB",
     },
-    chipText: { color: "#C8A165", fontSize: 12, fontWeight: "600" }, // Warna Coklat Muda / Branding Bloom
+    chipText: { color: "#C8A165", fontSize: 12, fontWeight: "600" },
     sectionTitle: {
         fontSize: 18,
         fontWeight: "700",
@@ -261,7 +259,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
     },
     retryButton: {
-        backgroundColor: "#C8A165", // Warna cream/cokelat
+        backgroundColor: "#C8A165", 
         paddingHorizontal: 24,
         paddingVertical: 12,
         borderRadius: 12,

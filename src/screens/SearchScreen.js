@@ -23,13 +23,13 @@ export default function SearchScreen({ navigation }) {
 
   const handleSearch = async (text) => {
     setQuery(text);
-    setError(null); // Reset error setiap kali melakukan pencarian baru
+    setError(null); 
 
-    if (text.length > 2) { // Cari kalau user sudah ketik lebih dari 2 huruf
+    if (text.length > 2) { 
       setLoading(true);
       try {
         const data = await searchShows(text);
-        setResults(data.filter(s => s.image)); // Filter yang ada gambarnya saja
+        setResults(data.filter(s => s.image)); 
       } catch (err) {
         setError('Gagal memuat data. Periksa koneksi internet Anda.');
       } finally {
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
   cardImage: { width: '100%', height: 200 },
   cardContent: { padding: 10 },
   cardTitle: { color: '#FFF', fontWeight: 'bold', fontSize: 14 },
-  cardGenre: { color: '#C8A165', fontSize: 11, marginTop: 4 }, // Warna Branding Bloom
+  cardGenre: { color: '#C8A165', fontSize: 11, marginTop: 4 }, 
   empty: { color: '#888', textAlign: 'center', marginTop: 50 },
   errorIcon: { fontSize: 48, marginBottom: 16 },
   errorText: {
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: '#C8A165', // Warna cream/coklat
+    backgroundColor: '#C8A165', 
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 12,

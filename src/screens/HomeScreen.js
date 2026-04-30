@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   cardGenre: {
-    color: "#C8A165", // Coklat Muda / Warna Branding Bloom
+    color: "#C8A165", 
     fontSize: 11,
     marginBottom: 6,
   },
@@ -254,7 +254,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   retryButton: {
-    backgroundColor: "#C8A165", // Warna cream/coklat
+    backgroundColor: "#C8A165", 
     paddingHorizontal: 24,
     paddingVertical: 12,
     borderRadius: 12,
